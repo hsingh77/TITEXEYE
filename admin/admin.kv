@@ -1,0 +1,127 @@
+# admin.kv - Simplified version using basic Kivy widgets
+BoxLayout:
+    orientation: 'vertical'
+    
+    BoxLayout:
+        size_hint_y: None
+        height: "56dp"
+        padding: "10dp"
+        
+        Label:
+            text: "Admin Dashboard - MyCameraApp"
+            font_size: '20sp'
+            bold: True
+            
+        Button:
+            text: "Refresh"
+            size_hint_x: None
+            width: "100dp"
+            on_press: app.refresh_all()
+            
+        Button:
+            text: "Change Root"
+            size_hint_x: None
+            width: "120dp"
+            on_press: app.choose_root()
+
+    Label:
+        id: current_root_lbl
+        size_hint_y: None
+        height: "30dp"
+        text: "Root: "
+        font_size: '12sp'
+
+    TabbedPanel:
+        do_default_tab: False
+        
+        TabbedPanelItem:
+            text: 'Users'
+            ScrollView:
+                GridLayout:
+                    id: users_list
+                    cols: 1
+                    size_hint_y: None
+                    height: self.minimum_height
+                    padding: "10dp"
+                    spacing: "5dp"
+
+        TabbedPanelItem:
+            text: 'Photos'
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    id: selected_user_lbl
+                    text: "No user selected"
+                    size_hint_y: None
+                    height: "30dp"
+                
+                # ADD THESE FILTER BUTTONS
+                BoxLayout:
+                    size_hint_y: None
+                    height: "40dp"
+                    padding: "10dp"
+                    spacing: "10dp"
+                    
+                    Button:
+                        text: "All Photos"
+                        on_press: app.show_all_photos()
+                    
+                    Button:
+                        text: "Approved Only"
+                        on_press: app.show_approved_photos()
+                    
+                    Button:
+                        text: "Unapproved Only"
+                        on_press: app.show_unapproved_photos()
+                
+                ScrollView:
+                    GridLayout:
+                        id: photos_grid
+                        cols: 3
+                        size_hint_y: None
+                        height: self.minimum_height
+                        padding: "10dp"
+                        spacing: "10dp"
+
+        TabbedPanelItem:
+            text: 'Stats'
+            GridLayout:
+                cols: 2
+                padding: "20dp"
+                spacing: "10dp"
+                
+                Label:
+                    text: "Total Users:"
+                    font_size: '16sp'
+                Label:
+                    id: total_users_lbl
+                    text: "0"
+                    font_size: '16sp'
+                    
+                Label:
+                    text: "Total Photos/Videos:"
+                    font_size: '16sp'
+                Label:
+                    id: total_photos_lbl
+                    text: "0"
+                    font_size: '16sp'
+                    
+                Label:
+                    text: "Storage Used:"
+                    font_size: '16sp'
+                Label:
+                    id: storage_lbl
+                    text: "0 B"
+                    font_size: '16sp'
+                    
+                Button:
+                    text: "Generate Report"
+                    on_press: app.generate_report()
+                    size_hint_y: None
+                    height: "40dp"
+                    
+                Button:
+                    text: "Export Photos"
+                    on_press: app.export_user_photos()
+                    size_hint_y: None
+                    height: "40dp"
